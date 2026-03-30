@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medimate AI - Desktop</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="desktop-layout">
+        <aside class="sidebar">
+            <button class="btn-new-chat">
+                <i class="fa-solid fa-plus"></i> New Consultation
+            </button>
+            
+            <div class="history-section">
+                <h2>Recent Chats</h2>
+            <ul class="history-list"></ul>
+            </div>
+            <button class="btn-clear-history">
+                <i class="fa-solid fa-trash"></i> Clear Chat History
+            </button>
+        </aside>
+
+        <div class="chat-container">
+            <header class="chat-header">
+                <div class="brand">
+                    <i class="fa-solid fa-notes-medical"></i>
+                    <h1>Medimate AI</h1>
+                </div>
+                
+                <div class="auth-buttons">
+    {% if user %}
+        <div class="profile-menu">
+            <i class="fa-solid fa-user profile-icon" onclick="toggleMenu()"></i>
+
+            <div class="dropdown" id="profileDropdown">
+                <p>{{ user }}</p>
+
+                <a href="/profile">Profile</a>
+                <a href="/privacy">Privacy</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    {% else %}
+        <a href="/login"><button class="btn-login">Log In</button></a>
+        <a href="/signup"><button class="btn-signup">Sign Up</button></a>
+    {% endif %}
+</div>
+            </header>
+
+            <main class="chat-box">
+                <div class="message bot-message">
+                    <div class="avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div class="message-content">
+                        <p>Hello! I am Medimate AI, your virtual health assistant. How can I help you today? Please note that I provide general information and not professional medical diagnoses.</p>
+                        <span class="timestamp" id="init-time"></span>
+                    </div>
+                </div>
+
+                <div class="message user-message">
+                    
+                </div>
+            </main>
+
+            <footer class="chat-input-area">
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Type your symptoms or questions here..." id="chat-input">
+                    <button class="btn-send" aria-label="Send Message">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+                <p class="disclaimer">Medimate AI can make mistakes. Always consult a real doctor for medical advice.</p>
+                <div class="site-footer">
+                <p>&copy; 2026 Ruturaj@Medimate AI. All rights reserved.</p>
+            </div>
+            </footer>
+        </div>
+    </div>
+<script src="/static/script.js"></script>
+</body>
+</html>

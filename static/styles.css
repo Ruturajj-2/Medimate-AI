@@ -1,0 +1,809 @@
+/* =========================================
+   1. Base Reset and Typography
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f4f8; 
+    height: 100vh;
+    overflow: hidden; /* Prevents whole-page scrolling */
+}
+
+/* =========================================
+   2. Desktop Layout & Sidebar
+   ========================================= */
+.desktop-layout {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 280px;
+    background-color: #ffffff;
+    border-right: 1px solid #e0e6ed;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    flex-shrink: 0;
+}
+
+.btn-new-chat {
+    width: 100%;
+    padding: 12px;
+    background-color: #e6f2ff;
+    color: #0056b3;
+    border: 1px dashed #0056b3;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+    margin-bottom: 25px;
+}
+
+.btn-new-chat:hover {
+    background-color: #cce0ff;
+}
+
+.history-section {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.history-section h3 {
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 15px 0 10px 5px;
+}
+
+.history-list {
+    list-style: none;
+}
+
+.history-list li {
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    color: #333;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.history-list li:hover {
+    background-color: #f5f7fa;
+}
+
+.history-list li.active {
+    background-color: #f0f4f8;
+    font-weight: 600;
+    color: #0056b3;
+}
+
+/* =========================================
+   3. Right Main Panel & Header
+   ========================================= */
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+}
+
+.chat-header {
+    background-color: #ffffff;
+    color: #333;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e6ed;
+    z-index: 10;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #0056b3;
+}
+
+.brand h1 {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.brand i {
+    font-size: 1.6rem;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.auth-buttons button, .auth-buttons a {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-login {
+    background: transparent;
+    color: #0056b3;
+    border: 1px solid #0056b3;
+}
+
+.btn-login:hover {
+    background: #f0f4f8;
+}
+
+.btn-signup {
+    background: #0056b3;
+    color: white;
+    border: none;
+}
+
+.btn-signup:hover {
+    background: #004494;
+}
+
+/* =========================================
+   4. Chat History Area (index.html)
+   ========================================= */
+.chat-box {
+    flex: 1;
+    padding: 30px 10%;
+    overflow-y: auto;
+    background-color: #fafbfc;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.message {
+    display: flex;
+    gap: 15px;
+    max-width: 80%;
+}
+
+.message-content {
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.timestamp {
+    display: block;
+    font-size: 0.75rem;
+    margin-top: 8px;
+    text-align: right;
+}
+
+.bot-message { align-self: flex-start; }
+.user-message { align-self: flex-end; flex-direction: row-reverse; }
+
+.bot-message .avatar {
+    background-color: #e6f2ff;
+    color: #0056b3;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    font-size: 1.2rem;
+}
+
+.bot-message .message-content {
+    background-color: #ffffff;
+    color: #333;
+    border: 1px solid #e0e6ed;
+    border-top-left-radius: 0;
+}
+
+.bot-message .timestamp { color: #888; }
+
+.user-message .message-content {
+    background-color: #0056b3;
+    color: white;
+    border-top-right-radius: 0;
+}
+
+.user-message .timestamp { color: #cce0ff; }
+
+/* =========================================
+   5. Chat Input Area (index.html)
+   ========================================= */
+.chat-input-area {
+    padding: 20px 10%;
+    background-color: #ffffff;
+    border-top: 1px solid #e0e6ed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.input-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 800px;
+    gap: 10px;
+}
+
+#chat-input {
+    flex: 1;
+    padding: 15px 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    font-size: 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: border-color 0.2s;
+}
+
+#chat-input:focus { border-color: #0056b3; }
+
+.btn-send {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    width: 50px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.2s;
+}
+
+.btn-send:hover { background-color: #004494; }
+
+.disclaimer {
+    font-size: 0.75rem;
+    color: #888;
+    text-align: center;
+}
+
+/* =========================================
+   6. Authentication Pages (login & signup)
+   ========================================= */
+.auth-body {
+    background-color: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.auth-container {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 420px;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 50, 100, 0.08);
+    position: relative;
+    z-index: 2;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.auth-header .brand {
+    justify-content: center;
+    color: #0056b3;
+    margin-bottom: 10px;
+}
+
+.auth-header .brand h1 { font-size: 1.8rem; }
+.auth-header .brand i { font-size: 2rem; }
+.auth-header p { color: #666; font-size: 0.95rem; }
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.input-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.input-group input {
+    padding: 14px 16px;
+    border: 1px solid #d1d9e6;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.2s;
+    background-color: #fafbfc;
+    width: 100%;
+}
+
+.input-group input:focus {
+    border-color: #0056b3;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+}
+
+.auth-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.remember-me {
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.forgot-password {
+    color: #0056b3;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.forgot-password:hover {
+    color: #004494;
+    text-decoration: underline;
+}
+
+.btn-auth-submit {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+    box-shadow: 0 4px 10px rgba(0, 86, 179, 0.2);
+}
+
+.btn-auth-submit:hover {
+    background-color: #004494;
+    box-shadow: 0 6px 15px rgba(0, 86, 179, 0.3);
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.auth-footer a {
+    color: #0056b3;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-footer a:hover { text-decoration: underline; }
+
+/* =========================================
+   7. Global Footers
+   ========================================= */
+.site-footer {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #888;
+    padding-top: 20px;
+    margin-top: auto; 
+    border-top: 1px solid #f0f4f8; 
+}
+
+.auth-footer-text {
+    position: absolute;
+    bottom: 20px;
+    border-top: none;
+    width: 100%;
+    color: #666;
+    z-index: 1;
+}
+
+/* =========================================
+   8. Profile Page (profile.html)
+   ========================================= */
+.profile-main {
+    flex: 1;
+    overflow-y: auto;
+    background-color: #f8fafc;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-wrapper {
+    width: 100%;
+    max-width: 800px;
+}
+
+.profile-wrapper h2 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+}
+
+.profile-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px 30px;
+    box-shadow: 0 4px 15px rgba(0, 50, 100, 0.05);
+    margin-bottom: 25px;
+    border: 1px solid #e0e6ed;
+}
+
+.profile-card h3 {
+    font-size: 1.1rem;
+    color: #0056b3;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f0f4f8;
+    padding-bottom: 10px;
+}
+
+/* Profile Photo Upload Layout */
+.photo-upload-container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    background-color: #e6f2ff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #0056b3;
+    font-size: 2.5rem;
+    border: 2px dashed #0056b3;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.profile-avatar:hover { background-color: #cce0ff; }
+
+.photo-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.help-text {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 5px;
+}
+
+/* Profile Form Layout */
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+.form-select {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #d1d9e6;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    background-color: #fafbfc;
+    color: #333;
+    cursor: pointer;
+}
+
+.form-select:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+}
+
+/* Profile Buttons */
+.btn-primary {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 5px 5px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover { background-color: #004494; }
+
+.btn-secondary {
+    background-color: #ffffff;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    background-color: #f0f4f8;
+    border-color: #999;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+.save-btn {
+    padding: 14px 30px;
+    font-size: 1.1rem;
+}
+
+/* Profile Settings Toggle */
+.settings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #fafbfc;
+    border-radius: 8px;
+    border: 1px solid #e0e6ed;
+}
+
+.setting-info h4 {
+    color: #333;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+}
+
+.setting-info p {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider { background-color: #0056b3; }
+input:focus + .slider { box-shadow: 0 0 1px #0056b3; }
+input:checked + .slider:before { transform: translateX(24px); }
+
+/* =========================================
+   9. Privacy & Security Specifics
+   ========================================= */
+/* Device List Styling */
+.device-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.device-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #fafbfc;
+    border: 1px solid #e0e6ed;
+    border-radius: 8px;
+}
+
+.device-icon {
+    font-size: 1.5rem;
+    color: #0056b3;
+    width: 40px;
+    text-align: center;
+}
+
+.device-info {
+    flex: 1;
+    margin-left: 10px;
+}
+
+.device-info h4 { font-size: 0.95rem; color: #333; margin-bottom: 3px; }
+.device-info p { font-size: 0.8rem; color: #666; }
+
+.status-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.active-status {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.btn-text {
+    background: none;
+    border: none;
+    color: #d32f2f;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.btn-text:hover { text-decoration: underline; }
+
+/* Danger Zone */
+.danger-zone { border: 1px solid #ffcdd2; background-color: #fffafb; }
+
+.btn-danger {
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-danger:hover { background-color: #b71c1c; }
+
+/* =========================================
+   10. Dark Mode Theme Overrides
+   ========================================= */
+body.dark-theme {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-theme .sidebar,
+body.dark-theme .chat-container,
+body.dark-theme .profile-main,
+body.dark-theme .chat-header {
+    background-color: #1a1a1a;
+    border-color: #333;
+}
+
+body.dark-theme .profile-card {
+    background-color: #242424;
+    border-color: #333;
+}
+
+body.dark-theme h1, 
+body.dark-theme h2, 
+body.dark-theme h3, 
+body.dark-theme h4 {
+    color: #ffffff;
+}
+
+body.dark-theme .subtitle, 
+body.dark-theme .setting-info p,
+body.dark-theme .site-footer {
+    color: #aaaaaa;
+}
+
+body.dark-theme .setting-item {
+    background-color: #2a2a2a;
+    border-color: #444;
+}
+
+/* Dark Mode Inputs and Buttons */
+body.dark-theme input,
+body.dark-theme .form-select {
+    background-color: #333;
+    color: #ffffff;
+    border-color: #555;
+}
+
+body.dark-theme .form-select option {
+    background-color: #333;
+    color: #ffffff;
+}
+
+body.dark-theme .btn-secondary {
+    background-color: #333;
+    color: #ffffff;
+    border-color: #555;
+}
+
+body.dark-theme .btn-secondary:hover {
+    background-color: #444;
+}
+
+/* Sidebar Dark Mode Fixes */
+body.dark-theme .history-list li { color: #e0e0e0; }
+body.dark-theme .history-list li:hover { background-color: #2a2a2a; }
+body.dark-theme .history-list li.active {
+    background-color: #333;
+    color: #66b2ff;
+}

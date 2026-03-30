@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy & Security - Medimate AI</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="desktop-layout">
+        <aside class="sidebar">
+            <a href="/" class="btn-new-chat" style="text-decoration: none;">
+                <i class="fa-solid fa-arrow-left"></i> Back to Chat
+            </a>
+            
+            <div class="history-section">
+                <h3>Account Menu</h3>
+                <ul class="history-list">
+                    <li class="active"><a href="/profile"><i class="fa-regular fa-user"></i> Personal Info</a></li>
+                    <li><a href="/privacy"><i class="fa-solid fa-shield-halved"></i> Privacy & Security</a></li>
+                </ul>
+            </div>
+
+            <div class="site-footer">
+                <p>&copy; 2026 Medimate AI. All rights reserved.</p>
+            </div>
+        </aside>
+
+        <div class="chat-container">
+            <header class="chat-header">
+                <div class="brand">
+                    <i class="fa-solid fa-notes-medical"></i>
+                    <h1>Medimate AI</h1>
+                </div>
+                <div class="auth-buttons">
+                    <a href="/logout" class="btn-login" style="text-decoration: none; display: inline-block;">Log Out</a>
+                </div>
+            </header>
+
+            <main class="profile-main">
+                <div class="profile-wrapper">
+                    <h2>Privacy & Security</h2>
+                    <p class="subtitle">Manage your password, security layers, and medical data.</p>
+
+                    <section class="profile-card">
+                        <h3>Change Password</h3>
+                        <form class="profile-form" action="/update_password" method="POST">
+                            <div class="input-group">
+                                <label for="current-password">Current Password</label>
+                                <input type="password" name="current" placeholder="Enter current password" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label for="new-password">New Password</label>
+                                    <input type="password" name="new" placeholder="Create a new password" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-secondary" style="margin-top: 10px; width: max-content;">Update Password</button>
+                        </form>
+                    </section>
+
+                <section class="profile-card">
+
+                    <section class="profile-card danger-zone">
+                        <h3 style="color: #d32f2f; border-bottom-color: #ffebee;">Data & Account Management</h3>
+                        <div class="settings-list">
+                            <div class="setting-item" style="border: none; padding: 10px 0;">
+                                <div class="setting-info">
+                                    <h4>Download My Data</h4>
+                                    <p>Get a copy of your chat history and medical profile data.</p>
+                                </div>
+                                <button class="btn-secondary"><i class="fa-solid fa-download"></i> Request Data</button>
+                            </div>
+                            <div class="setting-item" style="border: none; padding: 10px 0;">
+                                <div class="setting-info">
+                                    <h4>Delete Account</h4>
+                                    <p>Permanently remove your account and all associated health data. This cannot be undone.</p>
+                                </div>
+                                <form action="/delete_account" method="POST">
+                                    <button class="btn-danger">Delete Account</button>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

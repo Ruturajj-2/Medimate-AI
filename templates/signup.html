@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Medimate AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="auth-body">
+
+    <div class="auth-container">
+        <div class="auth-header">
+            <div class="brand">
+                <i class="fa-solid fa-notes-medical"></i>
+                <h1>Medimate AI</h1>
+            </div>
+            <p>Create an account to start your health consultation.</p>
+        </div>
+
+        <form class="auth-form" action="/signup" method="POST">
+            <div class="input-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" name="fullname" placeholder="Enter Full Name" required>
+            </div>
+
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input type="email" name="email" placeholder="Enter your email" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" placeholder="Create a strong password" required>
+            </div>
+
+            <button type="submit" class="btn-auth-submit">Create Account</button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Already have an account? <a href="/login">Log In</a></p>
+        </div>
+    </div>
+
+</body>
+</html>
+
+   
